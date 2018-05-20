@@ -1,20 +1,24 @@
-import React, {Component} from 'react';
+import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types'
 import CommentList from "./CommentList";
 import toggleOpen from '../Decorators/toggleOpen'
+import { CSSTransition } from 'react-transition-group'
 
-class Article extends Component{
+class Article extends PureComponent{
     static propTypes ={
         article: PropTypes.shape({
             id: PropTypes.string.isRequired,
             title: PropTypes.string.isRequired,
             text: PropTypes.string
-        }).isRequired
+        }).isRequired,
+        isOpen: PropTypes.bool,
+        toggleOpen: PropTypes.func
     };
 
     componentWillReceiveProps(nextProps){
         console.log('update', this.props.isOpen, nextProps.isOpen);
     }
+
 
 
     componentWillMount(){
@@ -31,7 +35,13 @@ class Article extends Component{
                     <button onClick={toggleOpen}>
                     {isOpen ? 'close' : 'open'}
                     </button>
+                <CSSTransition
+                    transitionName = 'article'
+                    transitionEnterTimeout = {3000}
+                    transitionLeaveTimeout = {3000}
+                >
                 {this.getBody()}
+                </CSSTransition>
             </div>
         )
     }
@@ -45,17 +55,18 @@ class Article extends Component{
         console.log('mounted')
     }
 
+    /*shouldComponentUpdate(nextProps, nextState){
+        return nextProps.isOpen !== this.props.isOpen
+    }*/
+
     getBody(){
         const {article, isOpen} = this.props;
         if (!isOpen) return null;
         return (
-
         <section>
             {article.text}
             <CommentList  comments = {article.comments} ref={this.setCommentRef}/>
         </section>
-
-
         );
     };
 
@@ -66,7 +77,7 @@ class Article extends Component{
 
 }
 
-export default Article
+export default toggleOpen(Article)
 
 
 

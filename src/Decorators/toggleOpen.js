@@ -9,7 +9,6 @@ export default (OriginalComponent) => class ToggleOpenComponent extends Componen
     }
 
     toggleOpen = (ev) =>{
-
         this.setState({
             isOpen: !this.state.isOpen
         })

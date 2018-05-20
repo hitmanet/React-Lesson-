@@ -5,4 +5,4 @@ import {articles} from "./fixtures";
 
 
 const article = articles[0];
-render(<App articles = {articles}/> ,document.querySelector('#container'));
+render(<App articles = {articles}/>, document.querySelector('#container'));
