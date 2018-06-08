@@ -2,7 +2,8 @@ import React, {Component, PureComponent} from 'react';
 import PropTypes from 'prop-types'
 import CommentList from "./CommentList";
 import toggleOpen from '../Decorators/toggleOpen'
-import { CSSTransition } from 'react-transition-group'
+import { CSSTransitionGroup } from 'react-transition-group'
+import './article.css'
 
 class Article extends PureComponent{
     static propTypes ={
@@ -35,13 +36,12 @@ class Article extends PureComponent{
                     <button onClick={toggleOpen}>
                     {isOpen ? 'close' : 'open'}
                     </button>
-                <CSSTransition
-                    transitionName = 'article'
-                    transitionEnterTimeout = {3000}
-                    transitionLeaveTimeout = {3000}
-                >
-                {this.getBody()}
-                </CSSTransition>
+                    <CSSTransitionGroup
+                        transitionName="article"
+                        transitionEnterTimeout={300}
+                        transitionLeaveTimeout={500}>
+                        {this.getBody()}
+                   </CSSTransitionGroup>
             </div>
         )
     }

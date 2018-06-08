@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Comment from "./Comment";
-import toggleOpen from "../Decorators/toggleOpen";
+import toggleOpen from "../Decorators/toggleOpen"
+import CommentForm from "./CommentForm"
 
  class CommentList extends Component {
     static defaultProps = {                         /*Props по умолчанию*/
@@ -15,6 +16,7 @@ import toggleOpen from "../Decorators/toggleOpen";
             <div>
                 <button onClick={this.props.toggleOpen}>{text}</button>
                 {this.getBody()}
+                <CommentForm/>
             </div>
         )
 
